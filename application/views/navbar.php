@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark mb-5 bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark mb-5 bg-dark sticky-top">
   
   <a class="navbar-brand" href="<?php echo site_url('main'); ?>">Subscription</a>
 
@@ -27,12 +27,11 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo site_url('login/logout'); ?>">Logout</a>
+
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <button type="button" class="btn btn-outline-danger " data-toggle="modal" data-target="#modal_logout"> Logout </button>
   </div>
 </nav>
+
+<?php $this->load->view('modal_validate') ?>

@@ -34,18 +34,21 @@
         </button>
 
         <div class="table-scroll p-3 border border-secondary mb-3 rounded">
-            <div class="table-scrollable table-responsive">
-                <table class="table table-bordered table-striped table-fixed" id="example">
+            <div class="table-scrollable ">
+                <table class="table table-responsive table-bordered my-3 table-striped table-fixed" id="example">
                     <thead>
                         <tr>
                             <!-- <th scope="col">id</th> -->
+                            <th scope="col">Date Create</th>
                             <th scope="col">Vender Name</th>
-                            <th scope="col">Purchase Date</th>
+                            <th scope="col">Contact Name</th>
                             
                             <th scope="col">Address</th>
                             <th scope="col">Tel</th>
+                            <th scope="col">Email</th>
                             <th scope="col">LineID</th>
                             <th scope="col">Software</th>
+                            <th scope="col">Purchase Date</th>
                             <th scope="col">Status</th>
                             <th scope="col">Detail</th>
                         </tr>
@@ -55,21 +58,22 @@
                         foreach ($list as $row) {
                             echo "<tr>";
                             // echo "<td>" . $row["id"] . "</td>";
+                            echo "<td>" . $row["create_date"] . "</td>";
                             echo "<td>" . $row["vendor_name"] . "</td>";
-                            echo "<td>" . $row["purchase_date"] . "</td>";
+                            echo "<td>" . $row["contact_name"] . "</td>";
                             
                             echo "<td>" . $row["address"] . '<div class="blinking-green"></div>' . "</td>";
                             echo "<td>" . $row["tel"] . '<div class="blinking-green"></div>' . "</td>";
+                            echo "<td>" . $row["email"] . "</td>";
                             echo "<td>" . $row["lineid"] . '<div class="blinking-green"></div>' . "</td>";
                             echo "<td>" . $row["software"] . "</td>";
+                            echo "<td>" . $row["purchase_date"] . "</td>";
                             echo "<td>" . $row["status"] . "</td>";
                             echo "<td><a href='" . site_url('main/edit/' . $row["id"]) . "' class='btn btn-secondary btn-sm'>Detail</a></td>";
                             echo "</tr>";
                         }
                         ?>
                 </table>
-                <script>
-                </script>
             </div>
 
         </div>

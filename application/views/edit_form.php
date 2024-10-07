@@ -12,7 +12,7 @@
 
 <body>
     <div class="container border-bottom mb-5">
-        <h1>Details</h1>
+        <h1>Edit/Update Vendor</h1>
     </div>
     <!-- <?php $id = $project["id"]; ?> -->
 
@@ -46,6 +46,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Contact name</label>
+                            <input type="text" class="form-control form-control-sm" value="<?php echo $project['contact_name'] ?>" id="exampleInputEmail1" name="contact_name" />
+                        </div>
+
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Software</label>
                             <select class="form-control form-control-sm" name="software">
                                 <option selected> <?php echo $project['software'] ?></option>
@@ -74,12 +79,20 @@
 
                     <div class="form-group">
                         <label for="exampleInputEmail1">Tel.</label>
-                        <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="tel" />
+                        <input type="text" class="form-control form-control-sm" value="<?php echo $project['tel'] ?>" id="exampleInputEmail1" name="tel" />
                     </div>
 
                     <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" class="form-control form-control-sm" value="<?php echo $project['email'] ?>" id="exampleInputEmail1" name="email" />
+                    </div>
+
+
+
+                    <div class="form-group">
                         <label for="exampleInputEmail1">LineID</label>
-                        <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="lineId" />
+
+                        <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" value="<?php echo $project['lineid'] ?>" name="lineid">
                     </div>
                 </div>
             </div>
@@ -98,7 +111,9 @@
 
     </div>
 
-    <hr class="mx-3">
+    <div class="container border-bottom mb-5">
+        <h1>Details</h1>
+    </div>
 
     <?php $this->load->view('modal_validate'); ?>
     <div class="container-fluid mb-5">
@@ -107,46 +122,53 @@
         New
     </button> -->
 
-        <?php echo "<button class='btn btn-success mb-3' onclick=\"openModal('$id')\" >New</button>" ?>
+        <div class="container">
+            <?php echo "<button class='btn btn-success mb-3' onclick=\"openModal('$id')\" >New</button>" ?>
 
-        <div class="table-scroll p-3 border border-secondary rounded ">
-            <div class="table-scrollable table-responsive">
-                <table class="table table-bordered table-striped table-fixed" id="example">
-                    <thead>
-                        <tr>
-                            <!-- <th scope="col">id</th> -->
-                            <!-- <th scope="col">ref_id</th> -->
+            <div class="table-scroll p-3 border rounded ">
+                <div class="table-scrollable ">
+                    <table class="table my-3 table-responsive table-bordered table-striped table-fixed" id="example">
+                        <thead>
+                            <tr>
+                                <!-- <th scope="col">id</th> -->
+                                <!-- <th scope="col">ref_id</th> -->
 
-                            <th scope="col">เอกสารแนบ</th>
-                            <th scope="col">รายการ</th>
-                            <th scope="col">เริ่มต้น</th>
-                            <th scope="col">สิ้นสุด</th>
-                            <th scope="col">วันทำงานจริง</th>
-                            <th scope="col">วันเสร็จงาน</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">จำนวนเงิน</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+                                <th scope="col">เอกสารแนบ</th>
+                                <th scope="col">รายการ</th>
+                                <th scope="col">เริ่มต้น</th>
+                                <th scope="col">สิ้นสุด</th>
+                                <th scope="col">วันทำงานจริง</th>
+                                <th scope="col">วันเสร็จงาน</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Service Type</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">จำนวนเงิน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
 
-                        foreach ($project_data_detail as $row) {
-                            echo "<tr>";
+                            foreach ($project_data_detail as $row) {
+                                echo "<tr>";
 
-                            // echo "<td>" . $row["id"] . "</td>";
-                            // echo "<td>" . $row["ref_list_id"] . "</td>";
-                            echo "<td><a href='" . base_url('uploads/' . $row['doc']) . "' download>'" . $row['doc'] . "'</a></td>";
-                            echo "<td>" . $row["list"] . "</td>";
-                            echo "<td>" . $row["start"] . "</td>";
-                            echo "<td>" . $row["end"] . "</td>";
-                            echo "<td>" . $row["work_start"] . "</td>";
-                            echo "<td>" . $row["work_end"] . "</td>";
-                            echo "<td>" . $row["status"] . "</td>";
-                            echo "<td>" . $row["amount"] . "</td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                </table>
+                                // echo "<td>" . $row["id"] . "</td>";
+                                // echo "<td>" . $row["ref_list_id"] . "</td>";
+                                echo "<td><a href='" . base_url('uploads/' . $row['doc']) . "' download>'" . $row['doc'] . "'</a></td>";
+                                echo "<td>" . $row["list"] . "</td>";
+                                echo "<td>" . $row["start"] . "</td>";
+                                echo "<td>" . $row["end"] . "</td>";
+                                echo "<td>" . $row["work_start"] . "</td>";
+                                echo "<td>" . $row["work_end"] . "</td>";
+                                echo "<td>" . $row["status"] . "</td>";
+                                echo "<td>" . $row["service_type"] . "</td>";
+                                echo "<td>" . $row["product"] . "</td>";
+                                echo "<td>" . $row["amount"] . "</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                    </table>
+
+                </div>
 
             </div>
 

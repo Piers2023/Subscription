@@ -61,7 +61,11 @@ class Main extends CI_Controller
 				'vendor_name' => $this->input->post('vendor_name'),
 				'address' => $this->input->post('address'),
 				'software' => $this->input->post('software'),
-				'status' => $this->input->post('status')
+				'status' => $this->input->post('status'),
+				'tel' => $this->input->post('tel'),
+				'lineid' => $this->input->post('lineid'),
+				'contact_name' => $this->input->post('contact_name'),
+				'email' => $this->input->post('email')
 			);
 
 			$this->data_model->insertdata($data);
@@ -146,7 +150,10 @@ class Main extends CI_Controller
 				'vendor_name' => $this->input->post('vendor_name'),
 				'address' => $this->input->post('address'),
 				'software' => $this->input->post('software'),
-				'status' => $this->input->post('status')
+				'status' => $this->input->post('status'),
+				'tel' => $this->input->post('tel'),
+				'lineid' => $this->input->post('lineid'),
+				'email' => $this->input->post('email')
 			);
 			$this->data_model->update_data($id, $data);
 
@@ -219,12 +226,15 @@ class Main extends CI_Controller
 				'work_end' => $this->input->post('work_end'),
 				'status' => $this->input->post('status'),
 				'list' => $this->input->post('list'),
-				'amount' => $this->input->post('amount')
+				'service_type' => $this->input->post('service_type'),
+				'amount' => $this->input->post('amount'),
+				'product' => $this->input->post('product')
+
 			);
 
 			$this->data_model->insertdata_detail($data);
-			$data['project'] = $this->data_model->get_data($id);
-			$data['project_data_detail'] = $this->data_model->get_data_detail($id);
+			// $data['project'] = $this->data_model->get_data($id);
+			// $data['project_data_detail'] = $this->data_model->get_data_detail($id);
 			$data["result"] =  $this->upload->data();
 			// echo "success";
 			// echo "<pre>";
@@ -233,6 +243,7 @@ class Main extends CI_Controller
 			$data["status"] = "success";
 			// $this->load->view('edit_form', $data);
 			redirect('main/edit/' . $id);
+			
 		}
 	}
 

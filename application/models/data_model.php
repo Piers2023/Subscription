@@ -62,7 +62,7 @@ class data_model extends CI_Model
 
     public function get_events() {
         // ใช้ Query Builder Class เพื่อเลือกคอลัมน์ที่ต้องการ
-    $this->project->select('list.vendor_name as title, list.software, list_detail.start, list_detail.end');
+    $this->project->select('list.vendor_name as title, list_detail.product, list_detail.end as start');
     $this->project->from('list');
 	$this->project->join('list_detail', 'list.id = list_detail.ref_list_id');
     $query = $this->project->get(); // ดึงข้อมูลจากฐานข้อมูล

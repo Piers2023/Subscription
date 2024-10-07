@@ -10,8 +10,8 @@
       </div>
       <div class="modal-body">
         <form id="insertForm" action='<?php echo site_url('main/insert') ?>' method="post">
-          
-        <div class="form-group">
+
+          <div class="form-group">
             <label for="exampleInputEmail1">Vendor Name</label>
             <select class="form-control form-control-sm" name="vendor_name" placeholder="Select Vendor">
               <?php
@@ -25,11 +25,16 @@
           </div>
 
           <div class="form-group">
+            <label for="exampleInputEmail1">Contact name</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="contact_name">
+          </div>
+
+          <div class="form-group">
             <label for="exampleInputEmail1">Purchase Date</label>
             <input type="date" name="purchase_date" class="form-control" id="exampleInputEmail1" min="<?= date('Y-m-d'); ?>" placeholder="Select date">
           </div>
 
-          
+
 
           <div class="form-group">
             <label for="exampleInputEmail1">Address</label>
@@ -50,6 +55,22 @@
               <option>Inactive</option>
             </select>
           </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="email" class="form-control form-control-sm" id="exampleInputEmail1" name="email">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Tel</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="tel">
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">LineID</label>
+            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="lineid">
+          </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="openVerifyModal()">New</button>
@@ -70,13 +91,14 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action='<?php echo site_url('main/insert_edit') ?>' method="post" enctype="multipart/form-data">
+        <form id="insert_form_edit" action='<?php echo site_url('main/insert_edit') ?>' method="post" enctype="multipart/form-data">
           <?php $this->load->view('insert_form_edit'); ?>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">New</button>
+        <button form="insert_form_edit" type="submit" class="btn btn-success">New</button>
       </div>
-      </form>
+
     </div>
   </div>
 </div>
@@ -211,3 +233,28 @@
   </div>
 </div>
 
+<div class="modal fade" id="modal_logout" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Logout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to logout?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-danger" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const logout = () => {
+    window.location.href = "<?php echo site_url('Login/logout') ?>";
+  }
+</script>

@@ -8,41 +8,53 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                selectable: false,
-                dayMaxEvents: true, // allow "more" link when too many events
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'multiMonthYear,dayGridMonth'
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        selectable: false,
+        dayMaxEvents: true, // allow "more" link when too many events
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'multiMonthYear,dayGridMonth'
+        },
+
+        dateClick: function(info) {
+            alert('clicked ' + info.dateStr);
+        },
+
+        events: function(fetchInfo, successCallback, failureCallback) {
+            $.ajax({
+                url: '<?php echo site_url('main/fetch_events'); ?>', // URL ไปยังฟังก์ชัน fetch_events ใน Controller
+                type: 'GET',
+
+                success: function(data) {
+                    var events = JSON.parse(data);
+                    console.log(events);
+
+                    successCallback(events);
                 },
-
-                dateClick: function(info) {
-                    alert('clicked ' + info.dateStr);
-                },
-
-                events: function(fetchInfo, successCallback, failureCallback) {
-                    $.ajax({
-                        url: '<?php echo site_url('main/fetch_events'); ?>', // URL ไปยังฟังก์ชัน fetch_events ใน Controller
-                        type: 'GET',
-
-                        success: function(data) {
-                            var events = JSON.parse(data);
-                            console.log(events);
-
-                            successCallback(events);
-                        },
-                        error: function() {
-                            failureCallback();
-                        }
-                    });
+                error: function() {
+                    failureCallback();
                 }
             });
-            calendar.render();
-        });
+        },
+
+        eventContent: function(arg) {
+            // สร้างเนื้อหาที่จะแสดงในเหตุการณ์
+            let customHtml = `
+                <div>
+                    <strong>${arg.event.title}</strong>
+                    <p>expired: ${arg.event.extendedProps.product}</p> <!-- แสดง description -->
+                </div>
+            `;
+            return { html: customHtml }; // คืนค่าที่สร้างขึ้น
+        }
+    });
+
+    calendar.render();
+});
     </script>
     <?php $this->load->view('bt'); ?>
 </head>
