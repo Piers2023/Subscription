@@ -11,65 +11,88 @@
       <div class="modal-body">
         <form id="insertForm" action='<?php echo site_url('main/insert') ?>' method="post">
 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Vendor Name</label>
-            <select class="form-control form-control-sm" name="vendor_name" placeholder="Select Vendor">
-              <?php
-              foreach ($vendor as $row) {
-                $vendor_name = $row["vendor_name"];
-                echo "<option value='$vendor_name'> $vendor_name </option>";
-              }
 
-              ?>
-            </select>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Vendor Name</label>
+                <select class="form-control" name="vendor_name" placeholder="Select Vendor">
+                  <?php
+                  foreach ($vendor as $row) {
+                    $vendor_name = $row["vendor_name"];
+                    echo "<option value='$vendor_name'> $vendor_name </option>";
+                  }
+
+                  ?>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Contact name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="contact_name">
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Purchase Date</label>
+                <input type="date" name="purchase_date" class="form-control" id="exampleInputEmail1" min="<?= date('Y-m-d'); ?>" placeholder="Select date">
+              </div>
+
+
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Address</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="address">
+              </div>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Contact name</label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="contact_name">
+
+
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Software</label>
+                <select class="form-control" name="software">
+                  <option>Small select</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Status</label>
+                <select class="form-control" name="status">
+                  <option>Active</option>
+                  <option>Inactive</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">LineID</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="lineid">
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleInputEmail1">Tel</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" name="tel">
+              </div>
+
+              
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Purchase Date</label>
-            <input type="date" name="purchase_date" class="form-control" id="exampleInputEmail1" min="<?= date('Y-m-d'); ?>" placeholder="Select date">
-          </div>
 
 
 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Address</label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="address">
-          </div>
 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Software</label>
-            <select class="form-control form-control-sm" name="software">
-              <option>Small select</option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <label for="exampleInputEmail1">Status</label>
-            <select class="form-control form-control-sm" name="status">
-              <option>Active</option>
-              <option>Inactive</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control form-control-sm" id="exampleInputEmail1" name="email">
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">Tel</label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="tel">
-          </div>
-
-          <div class="form-group">
-            <label for="exampleInputEmail1">LineID</label>
-            <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" name="lineid">
-          </div>
 
       </div>
       <div class="modal-footer">
@@ -82,7 +105,7 @@
 
 <!-- Insert edit_form -->
 <div class="modal fade" id="modal_insert_form_edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">New Detail</h5>
@@ -258,3 +281,23 @@
     window.location.href = "<?php echo site_url('Login/logout') ?>";
   }
 </script>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- จะแสดงข้อความที่ได้จาก PHP -->
+        Please select a file before uploading.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

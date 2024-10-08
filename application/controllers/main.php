@@ -211,6 +211,7 @@ class Main extends CI_Controller
 			// $this->load->view('upload_form', $error);
 			$data["result"] = $error;
 			$data["status"] = "error";
+			
 			// echo "error";
 			$this->load->view('edit_form', $data);
 		} else {

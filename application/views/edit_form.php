@@ -69,6 +69,8 @@
                                 <option value="Inactive">Inactive</option>
                             </select>
                         </div>
+
+                        
                 </div>
                 <div class="col">
                     <div class="form-group">
@@ -142,11 +144,14 @@
                                 <th scope="col">Status</th>
                                 <th scope="col">Service Type</th>
                                 <th scope="col">Product</th>
+                                <th scope="col">จำนวน</th>
                                 <th scope="col">จำนวนเงิน</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
+
+
 
                             foreach ($project_data_detail as $row) {
                                 echo "<tr>";
@@ -155,14 +160,19 @@
                                 // echo "<td>" . $row["ref_list_id"] . "</td>";
                                 echo "<td><a href='" . base_url('uploads/' . $row['doc']) . "' download>'" . $row['doc'] . "'</a></td>";
                                 echo "<td>" . $row["list"] . "</td>";
-                                echo "<td>" . $row["start"] . "</td>";
-                                echo "<td>" . $row["end"] . "</td>";
-                                echo "<td>" . $row["work_start"] . "</td>";
-                                echo "<td>" . $row["work_end"] . "</td>";
+                                $srtDate = new DateTime($row["start"]);
+                                echo "<td>" . $srtDate->format('d-m-Y') . "</td>";
+                                $endDate = new DateTime($row["end"]);
+                                echo "<td>" . $endDate->format('d-m-Y') . "</td>";
+                                $workSrt = new DateTime($row["work_start"]);
+                                echo "<td>" . $workSrt->format('d-m-Y') . "</td>";
+                                $workEnd = new DateTime($row["work_end"]);
+                                echo "<td>" . $workEnd->format('d-m-Y') . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
                                 echo "<td>" . $row["service_type"] . "</td>";
                                 echo "<td>" . $row["product"] . "</td>";
                                 echo "<td>" . $row["amount"] . "</td>";
+                                echo "<td>" . $row["cost"] . "</td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -173,6 +183,8 @@
             </div>
 
         </div>
+
+
 
 
         <script>
@@ -215,8 +227,8 @@
             }
         </script>
 
-
     </div>
+
 
 </body>
 

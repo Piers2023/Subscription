@@ -58,7 +58,8 @@
                         foreach ($list as $row) {
                             echo "<tr>";
                             // echo "<td>" . $row["id"] . "</td>";
-                            echo "<td>" . $row["create_date"] . "</td>";
+                            $creDate = new DateTime($row["create_date"]);
+                            echo "<td>" . $creDate->format('d-m-Y') . "</td>";
                             echo "<td>" . $row["vendor_name"] . "</td>";
                             echo "<td>" . $row["contact_name"] . "</td>";
                             
@@ -67,7 +68,8 @@
                             echo "<td>" . $row["email"] . "</td>";
                             echo "<td>" . $row["lineid"] . '<div class="blinking-green"></div>' . "</td>";
                             echo "<td>" . $row["software"] . "</td>";
-                            echo "<td>" . $row["purchase_date"] . "</td>";
+                            $purDate = new DateTime($row["purchase_date"]);
+                            echo "<td>" . $purDate->format('d-m-Y') . "</td>";
                             echo "<td>" . $row["status"] . "</td>";
                             echo "<td><a href='" . site_url('main/edit/' . $row["id"]) . "' class='btn btn-secondary btn-sm'>Detail</a></td>";
                             echo "</tr>";
