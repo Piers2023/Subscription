@@ -11,107 +11,122 @@
 </head>
 
 <body>
-    <div class="container border-bottom mb-5">
+    <div class="container border-bottom mb-4">
         <h1>Edit/Update Vendor</h1>
     </div>
     <!-- <?php $id = $project["id"]; ?> -->
+    <!-- <?php $ref_id = $getsome_data_detail["id"];  ?> -->
+
+    <div class="container mb-3">
+        <button class="btn btn-secondary" type="button" data-toggle="collapse" id="labelEdit" onclick="label()" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            แสดงหน้าแก้ไข
+        </button>
+    </div>
+
+    <div class="collapse" id="collapseExample">
+        <div class=" card-body">
+            <div class="container mb-5 d-flex justify-content-start border rounded p-3">
+                <div class=" card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <form id="updateForm" action="<?php echo site_url('main/update/' . $project['id']); ?>" method="post">
+                                    <input type="hidden" name="id" value="<?php echo $project['id']; ?>" />
 
 
-    <div class="container mb-5 d-flex justify-content-start border p-3">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"><strong>Purchase Date</strong></label>
+                                        <input type="date" name="purchase_date" value="<?php echo $project['purchase_date'] ?>" class="form-control" id="purchase_date" placeholder="Select date">
+                                    </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <form id="updateForm" action="<?php echo site_url('main/update/' . $project['id']); ?>" method="post">
-                        <input type="hidden" name="id" value="<?php echo $project['id']; ?>" />
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Vendor Name</label>
+                                        <select class="form-control form-control-sm" name="vendor_name" id="vendorName">
+                                            <option selected> <?php echo $project['vendor_name'] ?></option>
+                                            <?php
+                                            foreach ($vendor as $row) {
+                                                $vendor_id = $row["id"];
+                                                $vendor_name = $row["vendor_name"];
+                                                echo "<option value='$vendor_name'> $vendor_name </option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Contact name</label>
+                                        <input type="text" class="form-control form-control-sm" value="<?php echo $project['contact_name'] ?>" id="contact_name" name="contact_name" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Software</label>
+                                        <select class="form-control form-control-sm" name="software" id="software">
+                                            <option selected> <?php echo $project['software'] ?></option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="C">C</option>
+                                            <option value="D">D</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Status</label>
+                                        <select class="form-control form-control-sm" name="status" id="status">
+                                            <option selected> <?php echo $project['status'] ?></option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                        </select>
+                                    </div>
+                            </div>
+
+                            
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <textarea type="text" class="form-control form-control-sm" value="" id="address" name="address"><?php echo $project['address'] ?> </textarea>
+                                    <!-- <input type="text" class="form-control form-control-sm" value="<?php echo $project['address'] ?>" id="exampleInputEmail1" name="address"> -->
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Tel.</label>
+                                    <input type="text" class="form-control form-control-sm" value="<?php echo $project['tel'] ?>" id="tel" name="tel" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="email" class="form-control form-control-sm" value="<?php echo $project['email'] ?>" id="email" name="email" />
+                                </div>
 
 
-                        <div class="form-group">
-                            <label for="exampleInputEmail1"><strong>Purchase Date</strong></label>
-                            <input type="date" name="purchase_date" value="<?php echo $project['purchase_date'] ?>" class="form-control" id="exampleInputEmail1" placeholder="Select date">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">LineID</label>
+
+                                    <input type="text" class="form-control form-control-sm" id="lineid" value="<?php echo $project['lineid'] ?>" name="lineid">
+                                </div>
+
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                    <label class="custom-control-label" for="customSwitch1">off/on Edit</label>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Vendor Name</label>
-                            <select class="form-control form-control-sm" name="vendor_name">
-                                <option selected> <?php echo $project['vendor_name'] ?></option>
-                                <?php
-                                foreach ($vendor as $row) {
-                                    $vendor_id = $row["id"];
-                                    $vendor_name = $row["vendor_name"];
-                                    echo "<option value='$vendor_name'> $vendor_name </option>";
-                                }
-                                ?>
-                            </select>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group text-right mt-3">
+                                    <button type='button' id="updateButton" class='btn btn-primary' onclick="openPasswordModal()">Update</button>
+                                </div>
+                                </form>
+                            </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Contact name</label>
-                            <input type="text" class="form-control form-control-sm" value="<?php echo $project['contact_name'] ?>" id="exampleInputEmail1" name="contact_name" />
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Software</label>
-                            <select class="form-control form-control-sm" name="software">
-                                <option selected> <?php echo $project['software'] ?></option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="C">C</option>
-                                <option value="D">D</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Status</label>
-                            <select class="form-control form-control-sm" name="status">
-                                <option selected> <?php echo $project['status'] ?></option>
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                        </div>
-
-                        
+                    </div>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Address</label>
-                        <textarea type="text" class="form-control form-control-sm" value="" id="exampleInputEmail1" name="address"><?php echo $project['address'] ?> </textarea>
-                        <!-- <input type="text" class="form-control form-control-sm" value="<?php echo $project['address'] ?>" id="exampleInputEmail1" name="address"> -->
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tel.</label>
-                        <input type="text" class="form-control form-control-sm" value="<?php echo $project['tel'] ?>" id="exampleInputEmail1" name="tel" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control form-control-sm" value="<?php echo $project['email'] ?>" id="exampleInputEmail1" name="email" />
-                    </div>
 
 
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">LineID</label>
-
-                        <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" value="<?php echo $project['lineid'] ?>" name="lineid">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="form-group text-right mt-3">
-                        <button type='button' class='btn btn-primary' onclick="openPasswordModal()">Update</button>
-                    </div>
-                    </form>
-                </div>
             </div>
         </div>
-
-
-
-
     </div>
+
 
     <div class="container border-bottom mb-5">
         <h1>Details</h1>
@@ -146,9 +161,11 @@
                                 <th scope="col">Product</th>
                                 <th scope="col">จำนวน</th>
                                 <th scope="col">จำนวนเงิน</th>
+                                <th scope="col">เงื่อนไขบริการ</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php print_r($ref_id); ?>
                             <?php
 
 
@@ -173,6 +190,7 @@
                                 echo "<td>" . $row["product"] . "</td>";
                                 echo "<td>" . $row["amount"] . "</td>";
                                 echo "<td>" . $row["cost"] . "</td>";
+                                echo "<td><button onclick=\"openNoteModal('" . $row['id'] . "')\"  class='btn btn-secondary btn-sm'>Detail</button></td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -185,10 +203,39 @@
         </div>
 
 
+        <script>
+            function openNoteModal(id) {
+                $.ajax({
+                    url: '<?php echo site_url('main/note') ?>',
+                    type: 'POST',
+                    data: {
+                        id: id
+                    },
+                    success: function(response) {
+                        var data = JSON.parse(response);
 
+                        if (data.status === 'success') {
+                            // แสดงข้อมูลที่ดึงมา
+                            document.getElementById("noteid").innerHTML = data.detail.id;
+                            document.getElementById("letnote").innerHTML = data.detail.note;
+                            $('#modalNote').modal('show'); // เปิด modal
+                        } else {
+                            alert(data.message); // แสดงข้อความเมื่อไม่มีข้อมูล
+                            console.log(data);
+
+                        }
+                    },
+                    error: function() {
+                        alert('Error retrieving data.');
+                    }
+                });
+            }
+        </script>
 
         <script>
             new DataTable('#example');
+
+            
         </script>
         <script>
             function openModal(id) {
@@ -227,8 +274,59 @@
             }
         </script>
 
+        <script>
+            const label = () => {
+              var press = document.getElementById('labelEdit');
+
+              if(press.innerText === "แสดงหน้าแก้ไข") {
+                press.innerText = "ซ่อน";
+              } else {
+                press.innerText = "แสดงหน้าแก้ไข"
+              }
+                
+            }
+        </script>
+
     </div>
 
+    <script>
+        function updateInputField() {
+            var inputField = [
+                document.getElementById('purchase_date'),
+                document.getElementById('vendorName'),
+                document.getElementById('contact_name'),
+                document.getElementById('software'),
+                document.getElementById('status'),
+                document.getElementById('address'),
+                document.getElementById('tel'),
+                document.getElementById('email'),
+                document.getElementById('lineid'),
+                document.getElementById('updateButton'),
+            ];
+
+            var switchElement = document.getElementById('customSwitch1');
+
+            // เมื่อ checkbox ถูก checked/unchecked
+            if (this.checked) {
+                // วนลูปเพื่อเปิดใช้งาน input แต่ละตัวใน array
+                inputField.forEach(function(inputId) {
+                    inputId.disabled = false;
+                });
+            } else {
+                // วนลูปเพื่อปิดการใช้งาน input แต่ละตัวใน array
+                inputField.forEach(function(inputId) {
+                    inputId.disabled = true;
+                });
+            }
+        };
+
+        window.onload = function() {
+            updateInputField(); // เรียกใช้ฟังก์ชันเพื่อตั้งค่า input ตอนโหลดหน้า
+
+            // Event listener เพื่อเปลี่ยนสถานะ input เมื่อมีการกดปุ่มสวิตช์
+            document.getElementById('customSwitch1').addEventListener('change', updateInputField);
+        };
+    </script>
 
 </body>
 

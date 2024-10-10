@@ -53,8 +53,8 @@
 
             <label for="exampleInputEmail1">สินค้า</label>
             <div class="input-group">
-            <input type="text" name="product" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="Product">
-            <input type="number" name="amount" min="1" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="จำนวน">
+                <input type="text" name="product" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="Product">
+                <input type="number" name="amount" min="1" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="จำนวน">
             </div>
         </div>
     </div>
@@ -84,19 +84,35 @@
 
 
 
-<div class="row border rounded m-2 p-2">
-    <div class="col">
-        <div class="form-group">
-            <label for="exampleInputEmail1">แนบเอกสาร</label>
-            <input type="file" name="userfile" class="form-control p-1" id="userfile" placeholder="no">
-            
-        </div>
-    </div>
-    <div class="col">
-        <div class="form-group">
-            <label for="exampleInputEmail1">จำนวนเงิน</label>
-            <input type="number" name="amount" min="0" class="form-control" id="exampleInputEmail1" placeholder="Amount">
-        </div>
-    </div>
-</div>
+<div class="border rounded m-2 p-2">
 
+    <div class="row">
+        <div class="col">
+            <div class="form-group ">
+                <label for="exampleInputEmail1">แนบเอกสาร</label>
+                <input type="file" name="userfile" class="form-control p-1" id="userfile" placeholder="no">
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleInputEmail1">จำนวนเงิน</label>
+                <input type="number" name="amount" min="0" class="form-control" id="exampleInputEmail1" placeholder="Amount">
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="exampleInputEmail1">หมายเหตุ</label>
+                <textarea type="text" name="note" class="form-control" id="exampleInputEmail1" placeholder="ป้อน"> </textarea>
+            </div>
+        </div>
+    </div>
+
+
+</div>

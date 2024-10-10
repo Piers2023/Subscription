@@ -54,6 +54,14 @@ class data_model extends CI_Model
 			return $query->result_array();
 	}
 
+	public function getsome_data_detail($id) {
+		// ดึงข้อมูลจากฐานข้อมูล โดยเช็คให้แน่ใจว่าค่า id ตรงกัน
+		$query = $this->project->get_where('list_detail', array('id' => $id));
+	
+		// ส่งกลับข้อมูลแถวเดียวในรูปแบบ array
+		return $query->row_array();
+	}
+
 	public function update_data($id, $data) {
 		$this->project->where('id', $id);
 		$this->project->update('list', $data);

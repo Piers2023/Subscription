@@ -19,30 +19,60 @@
         <div class="head d-flex justify-content-between align-items-center">
             <h1>Welcome, <?php echo $this->session->userdata('username') ?></h1>
             <div class="right">
-                <h2 id="clock"  style="text-align: right;">00:00:00</h2>
-                <p id="countdown" ></p>
+                <h2 id="clock" style="text-align: right;">00:00:00</h2>
+                <p id="countdown"></p>
 
             </div>
         </div>
 
         <hr>
 
+        <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="./assets/img/night-city2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="./assets/img/night-city2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="./assets/img/night-city2.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </button>
+        </div>
 
+
+        <h1>Vendor Name</h1>
+        <hr>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-success mb-3" data-toggle="modal" data-target="#modal_insert">
+        <button type="button" class="btn btn-outline-success my-3" data-toggle="modal" data-target="#modal_insert">
             New
         </button>
 
         <div class="table-scroll p-3 border border-secondary mb-3 rounded">
             <div class="table-scrollable ">
                 <table class="table table-responsive table-bordered my-3 table-striped table-fixed" id="example">
+
                     <thead>
                         <tr>
                             <!-- <th scope="col">id</th> -->
                             <th scope="col">Date Create</th>
                             <th scope="col">Vender Name</th>
                             <th scope="col">Contact Name</th>
-                            
+
                             <th scope="col">Address</th>
                             <th scope="col">Tel</th>
                             <th scope="col">Email</th>
@@ -62,7 +92,7 @@
                             echo "<td>" . $creDate->format('d-m-Y') . "</td>";
                             echo "<td>" . $row["vendor_name"] . "</td>";
                             echo "<td>" . $row["contact_name"] . "</td>";
-                            
+
                             echo "<td>" . $row["address"] . '<div class="blinking-green"></div>' . "</td>";
                             echo "<td>" . $row["tel"] . '<div class="blinking-green"></div>' . "</td>";
                             echo "<td>" . $row["email"] . "</td>";
@@ -113,36 +143,35 @@
     <script>
         // เปิด modal เพื่อให้กรอกรหัสผ่าน
         function openVerifyModal() {
-                $('#openVerifyModal').modal('show');
-                $('#modal_insert').modal('hide');
-            }
+            $('#openVerifyModal').modal('show');
+            $('#modal_insert').modal('hide');
+        }
     </script>
 
     <script>
-       submitForm = () => {
-                var password = document.getElementById('password1').value;
+        submitForm = () => {
+            var password = document.getElementById('password1').value;
 
-                if (password) {
-                    // เพิ่มข้อมูลรหัสผ่านเข้าในฟอร์ม
-                    var form = document.getElementById('insertForm');
-                    var passwordInput = document.createElement('input');
-                    passwordInput.type = 'hidden';
-                    passwordInput.name = 'password';
-                    passwordInput.value = password;
-                    form.appendChild(passwordInput);
-                    
-                    // ส่งฟอร์มไปที่ controller
-                    form.submit();
-                } 
-                else {
-                    alert(password);
-                    
-                    
-                    
-                    // alert('กรุณากรอกรหัสผ่าน');
-                    <?php $this->session->set_flashdata('error', 'รหัสผ่านไม่ถูกต้อง'); ?>
-                }
+            if (password) {
+                // เพิ่มข้อมูลรหัสผ่านเข้าในฟอร์ม
+                var form = document.getElementById('insertForm');
+                var passwordInput = document.createElement('input');
+                passwordInput.type = 'hidden';
+                passwordInput.name = 'password';
+                passwordInput.value = password;
+                form.appendChild(passwordInput);
+
+                // ส่งฟอร์มไปที่ controller
+                form.submit();
+            } else {
+                alert(password);
+
+
+
+                // alert('กรุณากรอกรหัสผ่าน');
+                <?php $this->session->set_flashdata('error', 'รหัสผ่านไม่ถูกต้อง'); ?>
             }
+        }
     </script>
 </body>
 
