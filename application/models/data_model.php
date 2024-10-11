@@ -54,6 +54,14 @@ class data_model extends CI_Model
 			return $query->result_array();
 	}
 
+	public function getsome_data_detail($id) {
+		// ดึงข้อมูลจากฐานข้อมูล โดยเช็คให้แน่ใจว่าค่า id ตรงกัน
+		$query = $this->project->get_where('list_detail', array('id' => $id));
+	
+		// ส่งกลับข้อมูลแถวเดียวในรูปแบบ array
+		return $query->row_array();
+	}
+
 	public function update_data($id, $data) {
 		$this->project->where('id', $id);
 		$this->project->update('list', $data);
@@ -62,7 +70,7 @@ class data_model extends CI_Model
 
     public function get_events() {
         // ใช้ Query Builder Class เพื่อเลือกคอลัมน์ที่ต้องการ
-    $this->project->select('list.vendor_name as title, list.software, list_detail.start, list_detail.end');
+    $this->project->select('list.vendor_name as title, list_detail.product, list_detail.end as start');
     $this->project->from('list');
 	$this->project->join('list_detail', 'list.id = list_detail.ref_list_id');
     $query = $this->project->get(); // ดึงข้อมูลจากฐานข้อมูล
@@ -112,5 +120,18 @@ class data_model extends CI_Model
 		return $query->row_array();
 	}
 
+	// ฟังก์ชันสำหรับดึงรายการ event ที่กำลังจะถึงภายใน 15 วัน
+    public function get_upcoming_events() {
+        $today = date('Y-m-d'); // วันที่ปัจจุบัน
+        $future_date = date('Y-m-d', strtotime('+15 days')); // วันที่ในอีก 15 วันข้างหน้า
+
+        $this->project->select('title, DATEDIFF(start_date, CURDATE()) as days_left'); // เลือกฟิลด์ที่ต้องการ
+        $this->project->from('events'); // สมมติว่าชื่อตารางคือ 'events'
+        $this->project->where('start_date >=', $today);
+        $this->project->where('start_date <=', $future_date);
+        $query = $this->project->get();
+
+        return $query->result_array(); // คืนค่าผลลัพธ์เป็น array
+    }
 	
 }

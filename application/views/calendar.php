@@ -8,41 +8,53 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
 
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                selectable: false,
-                dayMaxEvents: true, // allow "more" link when too many events
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'multiMonthYear,dayGridMonth'
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        selectable: false,
+        dayMaxEvents: true, // allow "more" link when too many events
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'multiMonthYear,dayGridMonth'
+        },
+
+        dateClick: function(info) {
+            alert('clicked ' + info.dateStr);
+        },
+
+        events: function(fetchInfo, successCallback, failureCallback) {
+            $.ajax({
+                url: '<?php echo site_url('main/fetch_events'); ?>', // URL ไปยังฟังก์ชัน fetch_events ใน Controller
+                type: 'GET',
+
+                success: function(data) {
+                    var events = JSON.parse(data);
+                    console.log(events);
+
+                    successCallback(events);
                 },
-
-                dateClick: function(info) {
-                    alert('clicked ' + info.dateStr);
-                },
-
-                events: function(fetchInfo, successCallback, failureCallback) {
-                    $.ajax({
-                        url: '<?php echo site_url('main/fetch_events'); ?>', // URL ไปยังฟังก์ชัน fetch_events ใน Controller
-                        type: 'GET',
-
-                        success: function(data) {
-                            var events = JSON.parse(data);
-                            console.log(events);
-
-                            successCallback(events);
-                        },
-                        error: function() {
-                            failureCallback();
-                        }
-                    });
+                error: function() {
+                    failureCallback();
                 }
             });
-            calendar.render();
-        });
+        },
+
+        eventContent: function(arg) {
+            // สร้างเนื้อหาที่จะแสดงในเหตุการณ์
+            let customHtml = `
+                <div>
+                    <strong>${arg.event.title}</strong>
+                    <p>expired: ${arg.event.extendedProps.product}</p> <!-- แสดง description -->
+                </div>
+            `;
+            return { html: customHtml }; // คืนค่าที่สร้างขึ้น
+        }
+    });
+
+    calendar.render();
+});
     </script>
     <?php $this->load->view('bt'); ?>
 </head>
@@ -52,6 +64,36 @@
     <div class="container ">
         <div id='calendar'></div>
     </div>
+
+    <div class="container mt-5">
+        <h1>Upcoming Events Notification</h1>
+        <!-- ปุ่มสำหรับตรวจสอบการแจ้งเตือน -->
+        <button class="btn btn-primary" onclick="checkUpcomingEvents()">Check Notifications</button>
+        
+        <!-- รายการแจ้งเตือน -->
+        <ul id="notiList" class="list-group mt-3">
+            <!-- ข้อมูลแจ้งเตือนจะถูกแสดงที่นี่ -->
+        </ul>
+    </div>
+
+    <!-- JavaScript สำหรับเรียกใช้ Fetch API -->
+    <script>
+        function checkUpcomingEvents() {
+            fetch("<?php echo site_url('/main/check_upcoming'); ?>")
+                .then(response => response.json())
+                .then(notifications => {
+                    var notiList = document.getElementById('notiList');
+                    notiList.innerHTML = ''; // ล้างรายการเก่าก่อน
+                    notifications.forEach(notification => {
+                        var li = document.createElement('li'); // สร้าง li element ใหม่
+                        li.classList.add('list-group-item'); // เพิ่มคลาส Bootstrap
+                        li.textContent = 'Event "' + notification.title + '" is coming in ' + notification.days_left + ' days.';
+                        notiList.appendChild(li); // เพิ่ม li ลงใน notiList
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+    </script>
 </body>
 
 

@@ -61,7 +61,11 @@ class Main extends CI_Controller
 				'vendor_name' => $this->input->post('vendor_name'),
 				'address' => $this->input->post('address'),
 				'software' => $this->input->post('software'),
-				'status' => $this->input->post('status')
+				'status' => $this->input->post('status'),
+				'tel' => $this->input->post('tel'),
+				'lineid' => $this->input->post('lineid'),
+				'contact_name' => $this->input->post('contact_name'),
+				'email' => $this->input->post('email')
 			);
 
 			$this->data_model->insertdata($data);
@@ -104,8 +108,24 @@ class Main extends CI_Controller
 		$data['vendor'] = $this->data_model->vendor_list();
 		$data['project'] = $this->data_model->get_data($id);
 		$data['project_data_detail'] = $this->data_model->get_data_detail($id);
+		
 		$this->load->view('edit_form', $data);
 	}
+
+	public function note() {
+    // รับค่า id ที่ส่งมาจาก AJAX ผ่าน POST request
+    $id = $this->input->post('id');
+
+    // เรียกฟังก์ชันใน Model เพื่อดึงข้อมูล
+    $data = $this->data_model->getsome_data_detail($id);
+
+    // ตรวจสอบว่ามีข้อมูลหรือไม่ก่อนส่งกลับ
+    if ($data) {
+        echo json_encode(array('status' => 'success', 'detail' => $data));
+    } else {
+        echo json_encode(array('status' => 'error', 'message' => 'No data found.'));
+    }
+}
 
 
 	// public function update($id)
@@ -146,7 +166,10 @@ class Main extends CI_Controller
 				'vendor_name' => $this->input->post('vendor_name'),
 				'address' => $this->input->post('address'),
 				'software' => $this->input->post('software'),
-				'status' => $this->input->post('status')
+				'status' => $this->input->post('status'),
+				'tel' => $this->input->post('tel'),
+				'lineid' => $this->input->post('lineid'),
+				'email' => $this->input->post('email')
 			);
 			$this->data_model->update_data($id, $data);
 
@@ -204,6 +227,7 @@ class Main extends CI_Controller
 			// $this->load->view('upload_form', $error);
 			$data["result"] = $error;
 			$data["status"] = "error";
+			
 			// echo "error";
 			$this->load->view('edit_form', $data);
 		} else {
@@ -219,12 +243,16 @@ class Main extends CI_Controller
 				'work_end' => $this->input->post('work_end'),
 				'status' => $this->input->post('status'),
 				'list' => $this->input->post('list'),
-				'amount' => $this->input->post('amount')
+				'service_type' => $this->input->post('service_type'),
+				'amount' => $this->input->post('amount'),
+				'product' => $this->input->post('product'),
+				'note' => $this->input->post('note')
+
 			);
 
 			$this->data_model->insertdata_detail($data);
-			$data['project'] = $this->data_model->get_data($id);
-			$data['project_data_detail'] = $this->data_model->get_data_detail($id);
+			// $data['project'] = $this->data_model->get_data($id);
+			// $data['project_data_detail'] = $this->data_model->get_data_detail($id);
 			$data["result"] =  $this->upload->data();
 			// echo "success";
 			// echo "<pre>";
@@ -233,6 +261,7 @@ class Main extends CI_Controller
 			$data["status"] = "success";
 			// $this->load->view('edit_form', $data);
 			redirect('main/edit/' . $id);
+			
 		}
 	}
 
@@ -294,6 +323,14 @@ class Main extends CI_Controller
 		$this->data_model->vendor_delete($id);
 		redirect('main/add_data');
 	}
+
+	 // ฟังก์ชันสำหรับเช็ค event ที่กำลังจะมาถึง
+	 public function check_upcoming() {
+        $upcoming_events = $this->data_model->get_upcoming_events(); // ดึงข้อมูลจากโมเดล
+
+        // ส่งข้อมูลกลับในรูปแบบ JSON
+        echo json_encode($upcoming_events);
+    }
 
 	
 }
