@@ -324,5 +324,11 @@ class Main extends CI_Controller
 		redirect('main/add_data');
 	}
 
+	public function check_upcoming() {
+        $upcoming_events = $this->data_model->get_upcoming_events(); // ดึงข้อมูลจากโมเดล
+
+        // ส่งข้อมูลกลับในรูปแบบ JSON
+        echo json_encode($upcoming_events);
+    }
 	
 }

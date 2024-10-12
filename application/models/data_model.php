@@ -120,5 +120,17 @@ class data_model extends CI_Model
 		return $query->row_array();
 	}
 
+	public function get_upcoming_events() {
+        $today = date('Y-m-d'); // วันที่ปัจจุบัน
+        $future_date = date('Y-m-d', strtotime('+15 days')); // วันที่ในอีก 15 วันข้างหน้า
+
+        $this->project->select('product as title, DATEDIFF(end, CURDATE()) as days_left'); // เลือกฟิลด์ที่ต้องการ
+        $this->project->from('list_detail'); // สมมติว่าชื่อตารางคือ 'events'
+        $this->project->where('end >=', $today);
+        $this->project->where('end <=', $future_date);
+        $query = $this->project->get();
+
+        return $query->result_array(); // คืนค่าผลลัพธ์เป็น array
+    }
 	
 }

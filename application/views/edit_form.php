@@ -203,6 +203,7 @@
         </div>
 
 
+
         <script>
             function openNoteModal(id) {
                 $.ajax({
@@ -288,6 +289,8 @@
         </script>
 
     </div>
+
+    <?php $this->load->view('footer') ?>
 
     <script>
         function updateInputField() {

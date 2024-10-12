@@ -15,17 +15,27 @@
 
 <body>
     <?php $this->load->view('navbar') ?>
-    <div class="container " style="height: 50%;">
+    <div class="container">
         <div class="head d-flex justify-content-between align-items-center">
             <h1>Welcome, <?php echo $this->session->userdata('username') ?></h1>
-            <div class="right">
-                <h2 id="clock" style="text-align: right;">00:00:00</h2>
-                <p id="countdown"></p>
+            <div class="right d-flex justify-content-start">
+                <div class="row">
+                    <div class="col">
+                    <i class="fa-solid fa-bell fa-2xl mt-4" style="color: #fac400;"></i>
+                    </div>
+                    <div class="col">
+                    <h2 id="clock" style="text-align: right;">00:00:00</h2>
+                    </div>
+                </div>
+                
+                
 
             </div>
         </div>
 
-        <hr>
+        <hr class="mb-5">
+
+        
 
         <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -109,9 +119,11 @@
             </div>
 
         </div>
-        <h1>Lorem, ipsum dolor.</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex quasi et eum ut sequi in velit nam expedita aperiam minima aliquam eligendi reiciendis modi provident, repudiandae dolores architecto numquam quas?</p>
+        <!-- <h1>Lorem, ipsum dolor.</h1>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex quasi et eum ut sequi in velit nam expedita aperiam minima aliquam eligendi reiciendis modi provident, repudiandae dolores architecto numquam quas?</p> -->
     </div>
+
+    <?php $this->load->view('footer'); ?>
     <script>
         new DataTable('#example');
     </script>
