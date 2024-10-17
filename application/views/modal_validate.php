@@ -119,9 +119,8 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button form="insert_form_edit" type="submit" class="btn btn-success">New</button>
+        <button form="insert_form_edit" type="button" onclick="insertEdit()" class="btn btn-success">New</button>
       </div>
-
     </div>
   </div>
 </div>
@@ -278,6 +277,10 @@
 
 <script>
   const logout = () => {
+
+     // ลบค่า 'modalShown' ออกจาก LocalStorage
+     localStorage.removeItem('modalShown');
+
     window.location.href = "<?php echo site_url('Login/logout') ?>";
   }
 </script>

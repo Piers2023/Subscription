@@ -59,14 +59,56 @@
         });
     </script>
     <?php $this->load->view('bt'); ?>
+
+
+    <style>
+        .sticky-bottom {
+            position: sticky;
+            bottom: 0;
+            /* ติดที่ด้านล่าง */
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 
 <body>
     <?php $this->load->view('navbar'); ?>
 
+    
+    
     <div class="container ">
+
+    <div class="container position-relative">
+            <div class="head d-flex justify-content-between align-items-center">
+                <h1>Calendar</h1>
+
+
+                <div class="right d-flex">
+                    <div class="noti mx-4 pb-3">
+                        <!-- <i class="fa-solid fa-bell fa-2xl mt-4" style="color: #fac400;"></i> -->
+                        <?php $this->load->view('notification'); ?>
+                    </div>
+                    <div class="time">
+                        <h2 id="clock" style="text-align: right;">00:00:00</h2>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+        <hr class="mb-5">
+
         <div id='calendar'></div>
     </div>
+
+
 
     <?php $this->load->view('footer') ?>
 </body>

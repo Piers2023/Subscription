@@ -124,13 +124,30 @@ class data_model extends CI_Model
         $today = date('Y-m-d'); // วันที่ปัจจุบัน
         $future_date = date('Y-m-d', strtotime('+15 days')); // วันที่ในอีก 15 วันข้างหน้า
 
+        $this->project->select('product as title, DATEDIFF(end, CURDATE()) as days_left, list.vendor_name as description'); // เลือกฟิลด์ที่ต้องการ
+        $this->project->from('list_detail'); // สมมติว่าชื่อตารางคือ 'events'
+		$this->project->join('list', 'list.id = list_detail.ref_list_id');
+        $this->project->where('end >=', $today);
+        $this->project->where('end <=', $future_date);
+        $query = $this->project->get();
+
+        return $query->result_array(); // คืนค่าผลลัพธ์เป็น array
+    }
+
+	public function get_expiring_software() {
+        // ดึงข้อมูลซอฟต์แวร์ที่กำลังจะหมดอายุในอีก 15 วัน
+
+        $today = date('Y-m-d'); // วันที่ปัจจุบัน
+        $future_date = date('Y-m-d', strtotime('+15 days')); // วันที่ในอีก 15 วันข้างหน้า
+
         $this->project->select('product as title, DATEDIFF(end, CURDATE()) as days_left'); // เลือกฟิลด์ที่ต้องการ
         $this->project->from('list_detail'); // สมมติว่าชื่อตารางคือ 'events'
         $this->project->where('end >=', $today);
         $this->project->where('end <=', $future_date);
         $query = $this->project->get();
 
-        return $query->result_array(); // คืนค่าผลลัพธ์เป็น array
+        // คืนค่าผลลัพธ์เป็น array
+        return $query->result_array();
     }
 	
 }

@@ -29,6 +29,7 @@ class Login extends CI_Controller
             $this->session->set_userdata('user_id', $users->id);
             $this->session->set_userdata('username', $users->username);
             $this->session->set_userdata('password', $users->password);
+            $this->session->set_userdata('email', $users->email);
 
             $session = $this->session->userdata('username');
             $date = date("d/M/y H:i:s");

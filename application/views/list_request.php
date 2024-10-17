@@ -11,31 +11,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->load->view('bt'); ?>
     <?php $this->load->view('modal_validate'); ?>
+    
 </head>
 
 <body>
     <?php $this->load->view('navbar') ?>
     <div class="container">
-        <div class="head d-flex justify-content-between align-items-center">
-            <h1>Welcome, <?php echo $this->session->userdata('username') ?></h1>
-            <div class="right d-flex justify-content-start">
-                <div class="row">
-                    <div class="col">
-                    <i class="fa-solid fa-bell fa-2xl mt-4" style="color: #fac400;"></i>
+        <div class="container position-relative">
+            <div class="head d-flex justify-content-between align-items-center">
+                <h1>Welcome, <?php echo $this->session->userdata('username') ?></h1>
+
+
+                <div class="right d-flex">
+                    <div class="noti mx-4 pb-3">
+                        <!-- <i class="fa-solid fa-bell fa-2xl mt-4" style="color: #fac400;"></i> -->
+                        <?php $this->load->view('notification'); ?>
                     </div>
-                    <div class="col">
-                    <h2 id="clock" style="text-align: right;">00:00:00</h2>
+                    <div class="time">
+                        <h2 id="clock" style="text-align: right;">00:00:00</h2>
                     </div>
                 </div>
-                
-                
+
+
+
+
+
 
             </div>
         </div>
 
         <hr class="mb-5">
 
-        
+
 
         <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -71,6 +78,8 @@
         <button type="button" class="btn btn-outline-success my-3" data-toggle="modal" data-target="#modal_insert">
             New
         </button>
+
+
 
         <div class="table-scroll p-3 border border-secondary mb-3 rounded">
             <div class="table-scrollable ">
@@ -185,6 +194,63 @@
             }
         }
     </script>
+
+    <script>
+        window.onload = function() {
+            // เช็คว่ามีค่าใน LocalStorage ที่ชื่อว่า 'modalShown' หรือไม่
+            if (!localStorage.getItem('modalShown')) {
+                // ถ้าไม่มีแสดงว่า Modal ยังไม่ถูกแสดง
+                checkExpireDate();
+            }
+            // checkExpireDate();
+        }
+
+        function checkExpireDate() {
+            fetch("<?php echo site_url('/main/check_upcoming'); ?>")
+                .then(response => response.json())
+                .then(notifications => {
+
+                    var modalBody = document.getElementById('expiringModal-body');
+                    if (modalBody) {
+                        modalBody.innerHTML = ''; // ล้างข้อมูลเดิมใน ul
+
+                        notifications.forEach(notification => {
+
+                            // ตรวจสอบว่าเหลือวัน <= 15 หรือไม่
+                            if (notification.days_left <= 15) {
+
+                                var li = document.createElement('li');
+                                li.textContent = 'Event "' + notification.title + '" ของ ' + notification.description + ' กำลังจะหมดอายุใน ' + notification.days_left + ' วัน';
+                                modalBody.appendChild(li);
+                                
+                            }
+
+                            if (notification.days_left == 0) {
+                                li.remove();
+                            }
+                        });
+
+                        
+
+                        // ถ้ามีการแจ้งเตือน จึงจะแสดง modal
+                        if (notifications.length > 0) {
+                            var eventModal = new bootstrap.Modal(document.getElementById('expiringModal'));
+                            eventModal.show()
+
+                            // เมื่อแสดง Modal ให้บันทึกค่าใน LocalStorage ว่าแสดงแล้ว
+                            localStorage.setItem('modalShown', 'true');
+                        } else {
+                            console.error('Modal body not found!');
+                        }
+                    };
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+
+        }
+        
+    </script>
+
 </body>
 
 </html>

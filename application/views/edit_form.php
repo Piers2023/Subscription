@@ -275,6 +275,24 @@
             }
         </script>
 
+            <script>
+                function insertEdit() {
+
+                    var userfile = document.getElementById('userfile').files[0];
+
+                    if (userfile) {
+                        var insertEditForm = document.getElementById('insert_form_edit');
+                        insertEditForm.submit();
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('#modal_insert_form_edit').modal('hide');
+                        console.log('error');
+                        
+                    }
+                    
+                }
+            </script>
+
         <script>
             const label = () => {
               var press = document.getElementById('labelEdit');

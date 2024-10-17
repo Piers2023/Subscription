@@ -330,5 +330,59 @@ class Main extends CI_Controller
         // ส่งข้อมูลกลับในรูปแบบ JSON
         echo json_encode($upcoming_events);
     }
+
+	public function send_software_expiration_email() {
+        // โหลด model
+        $this->load->model('data_model');
+        
+        // ดึงข้อมูลซอฟต์แวร์ที่ใกล้หมดอายุจาก model
+        $expiring_software = $this->data_model->get_expiring_software();
+
+        // ดึงอีเมลผู้ใช้จาก session
+        $user_email = $this->session->userdata('email');  // อีเมลของผู้ใช้
+
+        // ส่งอีเมลแจ้งเตือนถ้ามีซอฟต์แวร์ที่กำลังจะหมดอายุภายใน 15 วัน
+        foreach ($expiring_software as $software) {
+            $this->send_email_notification($software['list'], $software['end'], $user_email);
+        }
+
+        // คืนค่าผลลัพธ์เป็นข้อความ JSON
+        echo json_encode(['status' => 'Emails sent for expiring software if any.']);
+    }
+
+	private function send_email_notification($software_name, $expiration_date, $user_email) {
+        // โหลดไลบรารี email
+        $this->load->library('email');
+
+        // ตั้งค่าการเชื่อมต่อ SMTP
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'peacepimpee2002@gmail.com', // อีเมลของคุณ
+            'smtp_pass' => '029431173pee', // รหัสผ่านอีเมลของคุณ
+            'mailtype' => 'html',
+            'charset'  => 'utf-8',
+            'wordwrap' => TRUE
+        );
+        $this->email->initialize($config);
+
+        // ตั้งค่าเนื้อหาอีเมล
+        $this->email->from('peacepimpee2002@gmail.com', 'Software Expiration System');
+        $this->email->to($user_email);  // ใช้อีเมลของผู้ใช้จาก session
+        $this->email->subject('Software Expiration Reminder: ' . $software_name);
+        $this->email->message('The software "' . $software_name . '" will expire on ' . $expiration_date . '. Please renew it soon.');
+
+        // ส่งอีเมล
+        if($this->email->send()) {
+            log_message('info', 'Email sent successfully for software: ' . $software_name . ' to ' . $user_email);
+        } else {
+            log_message('error', 'Failed to send email for software: ' . $software_name);
+            show_error($this->email->print_debugger());
+        }
+    }
+
+
+    
 	
 }
