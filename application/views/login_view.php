@@ -64,7 +64,7 @@
 
 <body>
 
-    <form class="form-signin" action="<?php echo site_url('login/login') ?>" method="post">
+    <form class="form-signin" action="<?php echo site_url('login/login_submit') ?>" method="post">
         <div class="container">
             <img class="mb-4 d-inline-block" src="<?php echo base_url('assets/img/logo.png') ?>" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal d-inline-block">Subscription</h1>

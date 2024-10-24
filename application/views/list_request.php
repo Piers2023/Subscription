@@ -1,8 +1,3 @@
-<?php
-
-
-?>
-
 <html>
 
 <head>
@@ -11,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->load->view('bt'); ?>
     <?php $this->load->view('modal_validate'); ?>
-    
 </head>
 
 <body>
@@ -20,8 +14,6 @@
         <div class="container position-relative">
             <div class="head d-flex justify-content-between align-items-center">
                 <h1>Welcome, <?php echo $this->session->userdata('username') ?></h1>
-
-
                 <div class="right d-flex">
                     <div class="noti mx-4 pb-3">
                         <!-- <i class="fa-solid fa-bell fa-2xl mt-4" style="color: #fac400;"></i> -->
@@ -31,111 +23,64 @@
                         <h2 id="clock" style="text-align: right;">00:00:00</h2>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
         </div>
-
         <hr class="mb-5">
 
-
-
-        <div id="carouselExampleIndicators" class="carousel slide mb-5" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="./assets/img/night-city2.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="./assets/img/night-city2.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="./assets/img/night-city2.jpg" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-target="#carouselExampleIndicators" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-target="#carouselExampleIndicators" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </button>
-        </div>
-
-
-        <h1>Vendor Name</h1>
-        <hr>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-success my-3" data-toggle="modal" data-target="#modal_insert">
-            New
-        </button>
-
-
-
-        <div class="table-scroll p-3 border border-secondary mb-3 rounded">
-            <div class="table-scrollable ">
-                <table class="table table-responsive table-bordered my-3 table-striped table-fixed" id="example">
-
-                    <thead>
-                        <tr>
-                            <!-- <th scope="col">id</th> -->
-                            <th scope="col">Date Create</th>
-                            <th scope="col">Vender Name</th>
-                            <th scope="col">Contact Name</th>
-
-                            <th scope="col">Address</th>
-                            <th scope="col">Tel</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">LineID</th>
-                            <th scope="col">Software</th>
-                            <th scope="col">Purchase Date</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Detail</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($list as $row) {
-                            echo "<tr>";
-                            // echo "<td>" . $row["id"] . "</td>";
-                            $creDate = new DateTime($row["create_date"]);
-                            echo "<td>" . $creDate->format('d-m-Y') . "</td>";
-                            echo "<td>" . $row["vendor_name"] . "</td>";
-                            echo "<td>" . $row["contact_name"] . "</td>";
-
-                            echo "<td>" . $row["address"] . '<div class="blinking-green"></div>' . "</td>";
-                            echo "<td>" . $row["tel"] . '<div class="blinking-green"></div>' . "</td>";
-                            echo "<td>" . $row["email"] . "</td>";
-                            echo "<td>" . $row["lineid"] . '<div class="blinking-green"></div>' . "</td>";
-                            echo "<td>" . $row["software"] . "</td>";
-                            $purDate = new DateTime($row["purchase_date"]);
-                            echo "<td>" . $purDate->format('d-m-Y') . "</td>";
-                            echo "<td>" . $row["status"] . "</td>";
-                            echo "<td><a href='" . site_url('main/edit/' . $row["id"]) . "' class='btn btn-secondary btn-sm'>Detail</a></td>";
-                            echo "</tr>";
-                        }
-                        ?>
-                </table>
-            </div>
-
-        </div>
-        <!-- <h1>Lorem, ipsum dolor.</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex quasi et eum ut sequi in velit nam expedita aperiam minima aliquam eligendi reiciendis modi provident, repudiandae dolores architecto numquam quas?</p> -->
     </div>
 
-    <?php $this->load->view('footer'); ?>
-    <script>
-        new DataTable('#example');
-    </script>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-outline-success my-3" data-toggle="modal" data-target="#modal_insert">
+        New
+    </button>
+
+    <div class="table-scroll p-3 border border-secondary mb-3 rounded">
+        <div class="table-scrollable ">
+            <table class="table table-responsive table-bordered my-3 table-striped table-fixed" id="example">
+
+                <thead>
+                    <tr>
+                        <!-- <th scope="col">id</th> -->
+                        <th scope="col">Date Create</th>
+                        <th scope="col">Vender Name</th>
+                        <th scope="col">Contact Name</th>
+
+                        <th scope="col">Address</th>
+                        <th scope="col">Tel</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">LineID</th>
+                        <th scope="col">Software</th>
+                        <th scope="col">Purchase Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($list as $row) {
+                        echo "<tr>";
+                        // echo "<td>" . $row["id"] . "</td>";
+                        $creDate = new DateTime($row["create_date"]);
+                        echo "<td>" . $creDate->format('d-m-Y') . "</td>";
+                        echo "<td>" . $row["vendor_name"] . "</td>";
+                        echo "<td>" . $row["contact_name"] . "</td>";
+
+                        echo "<td>" . $row["address"] . '<div class="blinking-green"></div>' . "</td>";
+                        echo "<td>" . $row["tel"] . '<div class="blinking-green"></div>' . "</td>";
+                        echo "<td>" . $row["email"] . "</td>";
+                        echo "<td>" . $row["lineid"] . '<div class="blinking-green"></div>' . "</td>";
+                        echo "<td>" . $row["software"] . "</td>";
+                        $purDate = new DateTime($row["purchase_date"]);
+                        echo "<td>" . $purDate->format('d-m-Y') . "</td>";
+                        echo "<td>" . $row["status"] . "</td>";
+                        echo "<td><a href='" . site_url('main/edit/' . $row["id"]) . "' class='btn btn-secondary btn-sm'>Detail</a></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+            </table>
+        </div>
+
+    </div>
 
     <script>
         // ฟังก์ชันในการอัปเดตเวลา
@@ -222,7 +167,7 @@
                                 var li = document.createElement('li');
                                 li.textContent = 'Event "' + notification.title + '" ของ ' + notification.description + ' กำลังจะหมดอายุใน ' + notification.days_left + ' วัน';
                                 modalBody.appendChild(li);
-                                
+
                             }
 
                             if (notification.days_left == 0) {
@@ -230,7 +175,7 @@
                             }
                         });
 
-                        
+
 
                         // ถ้ามีการแจ้งเตือน จึงจะแสดง modal
                         if (notifications.length > 0) {
@@ -248,8 +193,232 @@
 
 
         }
-        
     </script>
+
+
+
+
+    <?php  ?>
+
+    <div class="container-fluid mb-3">
+        <!-- Button trigger modal -->
+        <!-- <button type="button" class="btn btn-outline-success mb-3" data-toggle="modal" data-target="#modal_insert_form_edit">
+        New
+    </button> -->
+        <h1>Details</h1>
+        <hr>
+        <button type="button" class="btn btn-outline-success my-3 openSub" data-subid="new">
+            New
+        </button>
+
+        <!-- <td>
+            <div class='btn btn-info openmodal' data-document_no='new'>New</div>
+        </td> -->
+
+        <div class=" p-3 border rounded ">
+            <table class="table my-3 table-responsive table-bordered table-striped table-fixed" id="example1">
+                <thead>
+                    <tr>
+
+                        <th scope="col">myedit</th>
+                        <!-- <th scope="col">edit</th> -->
+                        <th scope="col">id</th>
+                        <th scope="col">vendorCode</th>
+
+                        <th scope="col">P/R</th>
+                        <th scope="col">Vendor</th>
+                        <th scope="col">รายการ</th>
+                        <th scope="col">เริ่มต้น</th>
+                        <th scope="col">สิ้นสุด</th>
+                        <th scope="col">วันทำงานจริง</th>
+                        <th scope="col">วันเสร็จงาน</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Service Type</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">จำนวน</th>
+                        <th scope="col">จำนวนเงิน</th>
+                        <th scope="col">เงื่อนไขบริการ</th>
+                        <th scope="col">เอกสารแนบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($project_data_detail as $row) {
+                        echo "<tr>";
+
+                        $id = $row["id"];
+                        echo "<td><div class='btn btn-info openSub' data-subid='$id' >Edit</div></td>";
+                        // echo "<td><div class='btn btn-info openmodal' data-document_no='$id' >Edit</div></td>";
+                        echo "<td>" . $row["id"] . "</td>";
+                        echo "<td>" . $row["vendor_code"] . "</td>";
+                        echo "<td>" . $row["pr_number"] . "</td>";
+                        echo "<td> <a href='" . site_url('main/edit/' . $row['vendor_code']) . "'>" . $row["vendor_name"] . "</a></td>";
+                        echo "<td>" . $row["list"] . "</td>";
+                        $srtDate = new DateTime($row["start"]);
+                        echo "<td>" . $srtDate->format('d-m-Y') . "</td>";
+                        $endDate = new DateTime($row["end"]);
+                        echo "<td>" . $endDate->format('d-m-Y') . "</td>";
+                        $workSrt = new DateTime($row["work_start"]);
+                        echo "<td>" . $workSrt->format('d-m-Y') . "</td>";
+                        $workEnd = new DateTime($row["work_end"]);
+                        echo "<td>" . $workEnd->format('d-m-Y') . "</td>";
+                        echo "<td>" . $row["status"] . "</td>";
+                        echo "<td>" . $row["service_type"] . "</td>";
+                        echo "<td>" . $row["product"] . "</td>";
+                        echo "<td>" . $row["amount"] . "</td>";
+                        echo "<td>" . $row["cost"] . "</td>";
+                        echo "<td><button onclick=\"openNoteModal('" . $row['id'] . "')\"  class='btn btn-secondary btn-sm'>Detail</button></td>";
+                        echo "<td><a href='" . base_url('uploads/' . $row['doc']) . "' download>'" . $row['doc'] . "'</a></td>";
+                        echo "</tr>";
+                    }
+                    ?>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+                function insertEdit() {
+
+                    var userfile = document.getElementById('userfile').files[0];
+
+                    if (userfile) {
+                        var insertEditForm = document.getElementById('insert_form_edit');
+                        insertEditForm.submit();
+                    } else {
+                        $('#errorModal').modal('show');
+                        $('#modal_insert_form_edit').modal('hide');
+                        console.log('error');
+                        
+                    }
+                    
+                }
+            </script>
+
+
+    <script>
+        const home = () =>
+    </script>
+
+    <script>
+        new DataTable('#example1');
+    </script>
+
+    <script>
+        function newSubModalClick() {
+
+            var userfile = document.getElementById('vendor_userfile').files[0];
+
+            if (userfile) {
+                var new_sub = document.getElementById('new_sub');
+                new_sub.submit();
+            } else {
+                $('#errorModal').modal('show');
+                $('#newSubModal').modal('hide');
+                console.log('error');
+
+            }
+
+        }
+    </script>
+
+    <script>
+        function openNoteModal(id) {
+            $.ajax({
+                url: '<?php echo site_url('main/note') ?>',
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+
+                    if (data.status === 'success') {
+                        // แสดงข้อมูลที่ดึงมา
+                        document.getElementById("noteid").innerHTML = data.detail.id;
+                        document.getElementById("letnote").innerHTML = data.detail.note;
+                        $('#modalNote').modal('show'); // เปิด modal
+                    } else {
+                        alert(data.message); // แสดงข้อความเมื่อไม่มีข้อมูล
+                        console.log(data);
+
+                    }
+                },
+                error: function() {
+                    alert('Error retrieving data.');
+                }
+            });
+        }
+    </script>
+
+
+    // <script>
+    //     $("body").on("click", ".openmodal", function(event) {
+
+    //         // event.preventDefault(); 
+
+
+    //         var document_no = $(this).data('documen_no');
+    //         $.ajax({
+
+    //             url: '<?php echo site_url("/main/listdd"); ?>',
+    //             type: 'post',
+    //             data: {
+    //                 document_no: document_no
+    //             },
+    //             success: function(response) {
+
+    //                 $('#body_detail').html(response);
+                    
+    //                 $('#myModal').modal('show');
+
+    //             },
+    //             error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+    //                 $('#body_detail').html(XMLHttpRequest.responseText);
+
+    //                 $('#myModal').modal('show');
+    //             }
+
+    //         });
+    //     });
+    // </script>
+
+    <script>
+        $("body").on("click", ".openSub", function(event) {
+
+            // event.preventDefault(); 
+
+
+            var subId = $(this).data('subid');
+            $.ajax({
+
+                url: '<?php echo site_url("/main/newSub"); ?>',
+                type: 'post',
+                data: {
+                    subId: subId
+                },
+                success: function(response) {
+
+                    $('#sub_detail').html(response);
+                    console.log(subId);
+                    
+                    $('#newSub').modal('show');
+
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+                    $('#body_detail').html(XMLHttpRequest.responseText);
+
+                    $('#newSub').modal('show');
+                }
+
+            });
+        });
+    </script>
+
+
+
 
 </body>
 

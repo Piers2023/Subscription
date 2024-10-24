@@ -15,7 +15,7 @@ date_default_timezone_set("Asia/Bangkok");
 | path to your installation.
 |
 */
-$config['base_url']	= ($_SERVER['SERVER_PORT'] == "443" ? "https" : "http")."://".$_SERVER['HTTP_HOST']."/Project";
+$config['base_url']	= ($_SERVER['SERVER_PORT'] == "443" ? "https" : "http")."://".$_SERVER['HTTP_HOST']."/subscription";
 
 /*
 |--------------------------------------------------------------------------

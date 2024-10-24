@@ -6,14 +6,33 @@ class data_model extends CI_Model
 		parent::__construct();
 
 		$this->project = $this->load->database('project', TRUE);
+		$this->vendor = $this->load->database('vendor', TRUE);
 	}
 
 	public function display_list() {
 
 		$sql = "select * from list";
 		$query = $this->project->query($sql);
+
 		return $query->result_array();
 	}
+
+	public function display_list_detail() {
+
+		$sql = "select * from list_detail";
+		$query = $this->project->query($sql);
+
+		return $query->result_array();
+	}
+
+	public function vendors() {
+
+		$sql = "select * from vendor";
+		$query = $this->vendor->query($sql);
+
+		return $query->result_array();
+	}
+
 
 	public function vendor_list()
 	{
@@ -45,14 +64,45 @@ class data_model extends CI_Model
 		return $query->row_array();
 	}
 
-	public function get_data_detail($id) {
+	public function get_data_detail_vendor_id($vendor_id) {
 		// $query = $this->project->get_where('list_detail', array('ref_list_id' => $id));
 		// return $query->row_array();
-		$sql = "select * from list_detail where ref_list_id = $id  ";
+		$sql = "select * from list_detail where vendor_code  = '$vendor_id'  ";
 			
 			$query = $this->project->query($sql);
 			return $query->result_array();
 	}
+
+	public function get_data_detail_id($id) {
+		// $query = $this->project->get_where('list_detail', array('ref_list_id' => $id));
+		// return $query->row_array();
+		$sql = "select * from list_detail where id  = '$id'  ";
+			
+			$query = $this->project->query($sql);
+			return $query->result_array();
+	}
+
+
+
+	public function get_data_detail($id) {
+		// $query = $this->project->get_where('list_detail', array('ref_list_id' => $id));
+		// return $query->row_array();
+		$sql = "select * from list_detail where ref_list_id  = $id  ";
+			
+			$query = $this->project->query($sql);
+			return $query->result_array();
+	}
+	
+		public function get_data_detail_by_id($id) {
+		// $query = $this->project->get_where('list_detail', array('ref_list_id' => $id));
+		// return $query->row_array();
+		$sql = "select * from list_detail where id  = $id  ";
+			
+			$query = $this->project->query($sql);
+			return $query->result_array();
+	}
+	
+	
 
 	public function getsome_data_detail($id) {
 		// ดึงข้อมูลจากฐานข้อมูล โดยเช็คให้แน่ใจว่าค่า id ตรงกัน
@@ -64,7 +114,11 @@ class data_model extends CI_Model
 
 	public function update_data($id, $data) {
 		$this->project->where('id', $id);
-		$this->project->update('list', $data);
+		$this->project->update('list_detail', $data);
+	}
+	public function updatetest($id, $data) {
+		$this->project->where('id', $id);
+		$this->project->update('list_detail', $data);
 	}
 
 
@@ -73,6 +127,8 @@ class data_model extends CI_Model
     $this->project->select('list.vendor_name as title, list_detail.product, list_detail.end as start');
     $this->project->from('list');
 	$this->project->join('list_detail', 'list.id = list_detail.ref_list_id');
+
+	
     $query = $this->project->get(); // ดึงข้อมูลจากฐานข้อมูล
 
     $events = $query->result_array();
@@ -84,6 +140,13 @@ class data_model extends CI_Model
 	public function index_add_data() {
 
 		$sql = "select * from vendor_name";
+		$query = $this->project->query($sql);
+		return $query->result_array();
+	}
+
+	public function index_add_software() {
+
+		$sql = "select * from software_list";
 		$query = $this->project->query($sql);
 		return $query->result_array();
 	}
@@ -149,5 +212,12 @@ class data_model extends CI_Model
         // คืนค่าผลลัพธ์เป็น array
         return $query->result_array();
     }
+
+	public function search_vendor_id($name) {
+
+		$sql = "select * from vendor where vendor_name = '$name'";
+		$query = $this->vendor->query($sql);
+		return $query->result_array();
+	}
 	
 }

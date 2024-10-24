@@ -115,7 +115,7 @@ $autoload['language'] = array();
 */
 
 //$autoload['model'] = array('Customer_model','Invoice_model','Datawarehouse_model','Navision_model','CRM_model','Shipment_model');
-$autoload['model'] = array('data_model', 'Apimodel');
+$autoload['model'] = array('data_model');
 //$autoload['model'] = array();
 
 /* End of file autoload.php */

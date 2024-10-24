@@ -1,5 +1,6 @@
 <?php $this->load->view('bt') ?>
 <?php $this->load->view('navbar') ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,12 +11,16 @@
 
 </head>
 
+
+
 <body>
     <div class="container border-bottom mb-4">
-        <h1>Edit/Update Vendor</h1>
+        <h1>Edit/Update Vendor <?php echo $get_vendor_name["id"]; ?></h1>
     </div>
+
+    
+    
     <!-- <?php $id = $project["id"]; ?> -->
-    <!-- <?php $ref_id = $getsome_data_detail["id"];  ?> -->
 
     <div class="container mb-3">
         <button class="btn btn-secondary" type="button" data-toggle="collapse" id="labelEdit" onclick="label()" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -133,24 +138,26 @@
     </div>
 
     <?php $this->load->view('modal_validate'); ?>
-    <div class="container-fluid mb-5">
+    <div class="container-fluid mb-5 ">
         <!-- Button trigger modal -->
         <!-- <button type="button" class="btn btn-outline-success mb-3" data-toggle="modal" data-target="#modal_insert_form_edit">
         New
     </button> -->
 
-        <div class="container">
+        <!-- <div class="container"> -->
             <?php echo "<button class='btn btn-success mb-3' onclick=\"openModal('$id')\" >New</button>" ?>
 
-            <div class="table-scroll p-3 border rounded ">
-                <div class="table-scrollable ">
+            <div class=" p-3 border rounded ">
+
                     <table class="table my-3 table-responsive table-bordered table-striped table-fixed" id="example">
                         <thead>
                             <tr>
                                 <!-- <th scope="col">id</th> -->
+                                
                                 <!-- <th scope="col">ref_id</th> -->
-
                                 <th scope="col">เอกสารแนบ</th>
+                                <th scope="col">P/R</th>
+                                <th scope="col">Vendor</th>
                                 <th scope="col">รายการ</th>
                                 <th scope="col">เริ่มต้น</th>
                                 <th scope="col">สิ้นสุด</th>
@@ -165,7 +172,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php print_r($ref_id); ?>
                             <?php
 
 
@@ -176,6 +182,8 @@
                                 // echo "<td>" . $row["id"] . "</td>";
                                 // echo "<td>" . $row["ref_list_id"] . "</td>";
                                 echo "<td><a href='" . base_url('uploads/' . $row['doc']) . "' download>'" . $row['doc'] . "'</a></td>";
+                                echo "<td>" . $row["pr_number"] . "</td>";
+                                echo "<td>" . $row["vendor_name"] . "</td>";
                                 echo "<td>" . $row["list"] . "</td>";
                                 $srtDate = new DateTime($row["start"]);
                                 echo "<td>" . $srtDate->format('d-m-Y') . "</td>";
@@ -196,7 +204,7 @@
                             ?>
                     </table>
 
-                </div>
+
 
             </div>
 
@@ -308,7 +316,7 @@
 
     </div>
 
-    <?php $this->load->view('footer') ?>
+
 
     <script>
         function updateInputField() {

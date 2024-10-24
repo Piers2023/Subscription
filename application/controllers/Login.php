@@ -1,5 +1,5 @@
 <?php
-class Login extends CI_Controller
+class login extends CI_Controller
 {
 
     public function __construct()
@@ -14,19 +14,21 @@ class Login extends CI_Controller
     public function index()
     {
 
-        $this->load->view('login');
+        $this->load->view('login_view');
     }
 
-    public function login()
+    public function login_submit()
     {
+  
         $username = $this->input->post('username');
         $password = $this->input->post('password');
-
+     
         $users = $this->user_model->login($username, $password);
-
+		
         if ($users) {
 
-            $this->session->set_userdata('user_id', $users->id);
+        
+			$this->session->set_userdata('user_id', $users->id);
             $this->session->set_userdata('username', $users->username);
             $this->session->set_userdata('password', $users->password);
             $this->session->set_userdata('email', $users->email);
@@ -103,7 +105,7 @@ class Login extends CI_Controller
 
         $this->session->sess_destroy();
 
-        redirect('login');
+        redirect(site_url('login/'));
     }
 
 

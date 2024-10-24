@@ -2,7 +2,7 @@
 Options +FollowSymLinks
  <IfModule mod_rewrite.c>
    RewriteEngine On
-   RewriteBase /Project
+   RewriteBase /subscription
 
     #Now, rewrite to HTTPS:
     #RewriteCond %{HTTPS} !=on [OR]
